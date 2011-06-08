@@ -1,0 +1,59 @@
+Integrating Facebook connect with Modx Evolution WebLogin
+=========================================================
+
+Current at: June 2011
+
+The following is based on earlier work referenced at http://modxcms.com/forums/index.php?topic=32390.20.
+
+
+This code uses the latest Facebook connect php SDK (see https://github.com/facebook/php-sdk/).
+It's been tested on Modx Evolution 1.0.5 only.  It's in production at imagebank.org.uk.
+
+
+What it does:
+-------------
+
+The code assumes that Modx holds the "definitive" username, password and fullname, and that you want to add
+the option to sign in using Facebook to an existent form which uses the WebLogin snippet, or want to
+allow people to sign in either using Facebook or a WebLogin.  The steps used are;
+
+1. Check if this is a facebook logon.  If so, see whether the user (the Facebook user number)
+exists in the Modx database.  If not, query Facebook to get the user reference number (Facebook ID -
+see http://developers.facebook.com/docs/reference/api/user/ for details)
+and full name.
+2. If necessary, create a new account using the Facebook reference number (Facebook ID) as the username
+and the full name from Facebook as the fullname.  Only these two are recorded, together with the password.
+3. The password is made up from the Facebook ID concatenated with a word or whatever that YOU define.  This
+is called the $passwordpostfix in the code, and is there to stop others hacking in using a Facebook ID.
+4. The newly created (or existing) account is then used to log in to the site.
+5. If this is not a Facebook login, we just log in using a Modx username and password as usual.
+6. That's it!  Note that you will need to sort out logout as well, and will probably want to use
+the Facebook ID (stored as username) to get the avatar from Facebook - there are lots of other things
+you can get from the Facebook ID as well - see http://developers.facebook.com/docs/reference/api/user/.
+
+How to implement:
+-----------------
+
+Before you start on Modx, go to Facebook and get an app ID and secret.  See http://developers.facebook.com/docs/guides/web/
+
+1.  Ensure you have the WebLogin snippet installed.
+2.  Get a copy of facebook.php from the Facebook php SDK (https://github.com/facebook/php-sdk/tree/master/src)
+    and copy it to a new directory you create at yourwebsite.com/facebook/.  If you prefer to put this elsewhere
+    you can change the location in WebLoginFB snippet.php (line 113)
+3.  Open the file "login.function.inc.php" and edit line 19.  Change the $passwordpostfix value to something you want to use
+4.  Copy the file "login.function.inc.php" to the /assets/snippets/weblogin/ directory on your server.
+5.  Open the file "WebLoginFB snippet.php" and edit line 100.  Change the $passwordpostfix value to the value used in step 2.
+6.  Still in WebLoginFB snippet.php add your Facebook app ID and secret at line 116/7 (search for [YOUR_APP_ID]).
+7.  In Modx, create a new snippet called WebLoginFB and copy the contents of your edited file into it.
+8.  Now in your page, you will need to put in the relevant function calls.  There is a sample shown as "sign in with FB.html".
+    Make sure you change the [YOUR_APP_ID] to your own Facebook app ID.  Put the code <fb:login-button>Sign in with Facebook</fb:login-button>
+    wherever you want the "Sign in with Facebook" button to appear.    Put the WebLoginFB snippet call (uncached)
+    where you want the log in using Modx to appear.
+
+Things to be aware of
+---------------------
+
+1. The user email isn't stored - we use a dummy "pleaseenter@youremail.here" for this field.
+2. If a user changes their Facebook full name it won't be changed in Modx
+3. If a user changes their full name on Modx then (depending on whether you access the fullname through the Facebook Graph API)
+   it may not show up when you display in Modx.  

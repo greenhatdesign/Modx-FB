@@ -95,7 +95,10 @@ if ($isPWDActivate || $isPWDReminder || $isLogOut || $isPostBack) {
 
 //name of the modx user group
 $usergroup="WebUsers";
-$passwordpostfix="ibank";  //make this change in the login function also
+
+//PASSWORDPOSTFIX: USER INTERVENTION REQUIRED HERE: - add in the postfix you want, make sure it's the same in WebLoginFB
+$passwordpostfix="12345";  //make this change in the login function also
+
 $email="pleaseenter@youremail.here";
 
 //database variables
@@ -195,12 +198,12 @@ if ($modx->getLoginUserType() == 'web')
       login($user_id);   
 
     }
-    
-//if logged in then send to home page
-if ($modx->getLoginUserType() == 'web')
-{
-    $modx->sendForward(1);
-} 
+	
+    //if logged in then send to home page
+    if ($modx->getLoginUserType() == 'web')
+    {
+	$modx->sendForward(1);
+    } 
 
 return $output;
 }

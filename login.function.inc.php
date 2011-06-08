@@ -1,21 +1,23 @@
 <?php
 function login($user) {
-# process login - this function from http://modxcms.com/forums/index.php?topic=32390.20
-
-# Start processing
-
-/* add in required WebAuth etc functions */
-# Set Snippet Paths 
-$snipPath = $modx->config['base_path'] . "assets/snippets/";
-include_once $snipPath."weblogin/weblogin.common.inc.php";
-include_once ($modx->config['base_path'] . "manager/includes/crypt.class.inc.php");
+    # process login - this function from http://modxcms.com/forums/index.php?topic=32390.20
+    # modified BAS (greenhatdesign/net) June 2011
+    
+    /* add in required WebAuth etc functions */
+    # Set Snippet Paths 
+    $snipPath = $modx->config['base_path'] . "assets/snippets/";
+    include_once $snipPath."weblogin/weblogin.common.inc.php";
+    include_once ($modx->config['base_path'] . "manager/includes/crypt.class.inc.php");
     global $modx;
-
-defined('IN_PARSER_MODE') or die();
-
-$dbase = $modx->dbConfig['dbase'];
-$table_prefix = $modx->dbConfig['table_prefix'];
-$passwordpostfix="ibank"; //make tis change in the WebLoginFB snippet also
+    
+    defined('IN_PARSER_MODE') or die();
+    
+    $dbase = $modx->dbConfig['dbase'];
+    $table_prefix = $modx->dbConfig['table_prefix'];
+    
+    //PASSWORDPOSTFIX: USER INTERVENTION REQUIRED HERE: - add in the postfix you want, make sure it's the same in WebLoginFB
+    $passwordpostfix="12345"; //make this change in the WebLoginFB snippet also
+    
     $logindetails = array();
     $logindetails['username'] = $user;
     $logindetails['givenPass'] = $user.$passwordpostfix; //needs to match that set in the main body
