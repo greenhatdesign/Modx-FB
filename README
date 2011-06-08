@@ -43,10 +43,10 @@ Before you start on Modx, go to Facebook and get an app ID and secret.  See http
 3.  Open the file "login.function.inc.php" and edit line 19.  Change the $passwordpostfix value to something you want to use
 4.  Copy the file "login.function.inc.php" to the /assets/snippets/weblogin/ directory on your server.
 5.	Open the file "WebLoginFB snippet.php" and edit line 97.  Change the $usergroup to the usergroup you want to add users to.
-5.  Still in WebLoginFB snippet.php edit line 100.  Change the $passwordpostfix value to the value used in step 2.
-6.  Still in WebLoginFB snippet.php add your Facebook app ID and secret at line 116/7 (search for [YOUR_APP_ID]).
-7.  In Modx, create a new snippet called WebLoginFB and copy the contents of your edited file into it.
-8.  Now in your page, you will need to put in the relevant function calls.  There is a sample shown as "sign in with FB.html".
+6.  Still in WebLoginFB snippet.php edit line 100.  Change the $passwordpostfix value to the value used in step 2.
+7.  Still in WebLoginFB snippet.php add your Facebook app ID and secret at line 116/7 (search for [YOUR_APP_ID]).
+8.  In Modx, create a new snippet called WebLoginFB and copy the contents of your edited file into it.
+9.  Now in your page, you will need to put in the relevant function calls.  There is a sample shown as "sign in with FB.html".
     Make sure you change the [YOUR_APP_ID] to your own Facebook app ID.  Put the code <fb:login-button>Sign in with Facebook</fb:login-button>
     wherever you want the "Sign in with Facebook" button to appear.    Put the WebLoginFB snippet call (uncached)
     where you want the log in using Modx to appear.
