@@ -93,7 +93,7 @@ if ($isPWDActivate || $isPWDReminder || $isLogOut || $isPostBack) {
     //run weblogin as usual - comment this out if you don't want the old style Modx login option
 	include_once $snipPath."weblogin/weblogin.inc.php";
 
-//name of the modx user group
+//USERGROUP: USER INTERVENTION REQUIRED HERE: - name of the modx user group - change 
 $usergroup="WebUsers";
 
 //PASSWORDPOSTFIX: USER INTERVENTION REQUIRED HERE: - add in the postfix you want, make sure it's the same in WebLoginFB
